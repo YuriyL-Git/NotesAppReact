@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  &__control-btn-wrapper {
+    margin: 1rem 0 0 2rem;
+    width: 65rem;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__btn-add {
+    background-color: green !important;
+  }
+
+  &__render-btn-wrapper {
+    width: 37.5rem;
+    display: flex;
+    margin: 1rem 2rem 0 2rem;
+    justify-content: space-between;
+  }
+
+  &__btn-show-notes {
+    width: 18rem !important;
+    background-color: #1299cc !important;
+  }
+
+  &__btn-show-archive {
+    width: 18rem !important;
+    background-color: #1299cc !important;
+  }
+}
+
+.btn-active {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none;
+}
