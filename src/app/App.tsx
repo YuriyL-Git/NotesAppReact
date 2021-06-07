@@ -1,17 +1,21 @@
 import React, { ReactElement } from 'react';
 import Header from './components/header/header';
-
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
-import { addNote, editNote, Note } from './features/notesSlice';
-import { showActiveNotes, showArchiveNotes } from './features/appSlice';
+import { addNoteAction, editNoteAction, Note } from './features/notesSlice';
+import {
+  showActiveNotes,
+  showArchiveNotes,
+  blinkNote,
+  blinkCategory,
+} from './features/appSlice';
 
 import './App.scss';
+import InputsField from './components/input-field/inputs-field';
 
 function App(): ReactElement {
-  const notesState = useAppSelector(state => state.notes);
-  const appState = useAppSelector(state => state.app);
-
   const dispatch = useAppDispatch();
+  const inputNote = useAppSelector(state => state.app.inputNote);
+  const inputCategory = useAppSelector(state => state.app.inputCategory);
 
   const noteToAdd: Note = {
     id: Date.now(),
@@ -22,18 +26,27 @@ function App(): ReactElement {
   };
 
   const btnAddClick = () => {
-    dispatch(addNote(noteToAdd));
-    console.log('notesState', notesState);
+    console.log(inputNote, inputCategory);
+    if (!inputNote) {
+      dispatch(blinkNote());
+      return;
+    }
+
+    if (!inputCategory) {
+      dispatch(blinkCategory());
+    }
   };
 
   const btnShowNotesClick = () => {
     dispatch(showActiveNotes());
-    console.log(appState);
   };
 
   const btnShowArchiveClick = () => {
     dispatch(showArchiveNotes());
-    console.log(appState);
+  };
+
+  const addNote = (note: Note) => {
+    dispatch(addNoteAction(note));
   };
 
   return (
@@ -43,6 +56,7 @@ function App(): ReactElement {
         btnShowNotesClick={btnShowNotesClick}
         btnShowArchiveClick={btnShowArchiveClick}
       />
+      <InputsField />
     </div>
   );
 }

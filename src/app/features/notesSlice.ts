@@ -15,14 +15,14 @@ const notesSlice = createSlice({
   name: 'notes',
   initialState: stateInit,
   reducers: {
-    editNote: (state, action) => {
+    editNoteAction: (state, action) => {
       state[action.payload.noteId].note = action.payload.noteText;
     },
-    addNote: (state, action: PayloadAction<Note>) => {
+    addNoteAction: (state, action: PayloadAction<Note>) => {
       state.push(action.payload);
     },
   },
 });
 
-export const { editNote, addNote } = notesSlice.actions;
+export const { editNoteAction, addNoteAction } = notesSlice.actions;
 export default notesSlice.reducer;
