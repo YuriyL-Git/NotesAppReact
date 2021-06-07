@@ -1,0 +1,12 @@
+[
+  {
+    "date": "01/06/21",
+    "note": "Doctor appointment",
+    "isActive": true
+  },
+  {
+    "date": "02/06/21",
+    "note": "Meeting with the customer",
+    "isActive": true
+  }
+]

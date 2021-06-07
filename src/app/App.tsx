@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react';
-import './App.scss';
 import Header from './components/header/header';
 
-const btnAddClick = () => {
-  console.log('add click');
-};
+import { useAppDispatch, useAppSelector } from './hooks/hooks';
+import { edited, added, Note } from './features/notes/notesSlice';
+import './App.scss';
+
 const btnShowNotesClick = () => {
   console.log('notes click');
 };
@@ -13,6 +13,18 @@ const btnShowArchiveClick = () => {
 };
 
 function App(): ReactElement {
+  const currentState = useAppSelector(state => state.notes);
+  const dispatch = useAppDispatch();
+
+  const noteToAdd: Note = {
+    date: 'string',
+    note: 'string',
+    isActive: true,
+  };
+
+  const btnAddClick = () => {
+    dispatch(added(noteToAdd));
+  };
   return (
     <div className="app">
       <Header

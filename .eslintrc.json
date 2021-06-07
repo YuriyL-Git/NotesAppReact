@@ -30,6 +30,18 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": [
+          "draft",
+          "sketch",
+          "outline",
+          "state"
+        ]
+      }
+    ],
     "prettier/prettier": [
       "error",
       {
