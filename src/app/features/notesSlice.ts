@@ -1,13 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import mockState from '../mock/mock.json';
-
-export interface Note {
-  id: number;
-  date: string;
-  note: string;
-  datesInNote: string;
-  isActive: boolean;
-}
+import { Note } from '../models/Note';
 
 const stateInit = mockState as Array<Note>;
 
@@ -15,8 +8,8 @@ const notesSlice = createSlice({
   name: 'notes',
   initialState: stateInit,
   reducers: {
-    editNoteAction: (state, action) => {
-      state[action.payload.noteId].note = action.payload.noteText;
+    editNoteAction: (state, action: PayloadAction<Note>) => {
+      state[action.payload.id].note = action.payload.note;
     },
     addNoteAction: (state, action: PayloadAction<Note>) => {
       state.push(action.payload);

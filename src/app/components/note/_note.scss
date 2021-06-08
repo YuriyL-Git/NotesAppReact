@@ -1,0 +1,71 @@
+.note {
+  width: 100%;
+  margin: 0 auto 0.6rem;
+  height: auto;
+  min-height: 8rem;
+  display: grid;
+  grid-template-columns: 12% 58% 15% 15%;
+  grid-template-areas: "tm ct cg dt";
+  font-family: Roboto, sans-serif;
+  cursor: pointer;
+  border-radius: 5px;
+  background: linear-gradient(to top, rgb(178, 254, 250), rgb(14, 210, 247));;
+
+  &:hover {
+    background: linear-gradient(120deg, #b2fefa, #0ed2f7);
+  }
+
+  &--selected {
+    background: linear-gradient(120deg, #4b9f9a, #0db1d0);
+
+    &:hover {
+      background: linear-gradient(120deg, #4b9f9a, #0db1d0);
+    }
+  }
+
+  &__creation-time {
+    grid-area: tm;
+    display: grid;
+    place-items: center;
+    border: 1px solid gray;
+    min-width: 100%;
+    width: auto;
+    font-size: 2.2rem;
+    font-weight: 500;
+    border-radius: 5px 0 0 5px;
+  }
+
+  &__content {
+    grid-area: ct;
+    border: 1px solid gray;
+    width: 100%;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem 1rem 1rem 2rem;
+    overflow-wrap: anywhere;
+  }
+
+  &__category {
+    grid-area: cg;
+    border: 1px solid gray;
+    width: 100%;
+    font-size: 2.2rem;
+    display: grid;
+    place-items: center;
+  }
+
+  &__dates-in-note {
+    grid-area: dt;
+    border: 1px solid gray;
+    width: 100%;
+    font-size: 1.8rem;
+    display: grid;
+    place-items: center;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+    padding: 1rem;
+    line-height: 2.4rem;
+    word-wrap: break-word;
+  }
+}

@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react';
 import Header from './components/header/header';
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
-import { addNoteAction, editNoteAction, Note } from './features/notesSlice';
+import { addNoteAction, editNoteAction } from './features/notesSlice';
+import { Note } from './models/Note';
 import {
   showActiveNotes,
   showArchiveNotes,
@@ -9,21 +10,26 @@ import {
   blinkCategory,
 } from './features/appSlice';
 
-import './App.scss';
+import './style/App.scss';
 import InputsField from './components/input-field/inputs-field';
+import NoteComponent from './components/note/note';
 
 function App(): ReactElement {
   const dispatch = useAppDispatch();
+  const notes = useAppSelector(state => state.notes);
+  const isActiveNotes = useAppSelector(state => state.app.isActiveNotes);
+  console.log(notes);
+
   const inputNote = useAppSelector(state => state.app.inputNote);
   const inputCategory = useAppSelector(state => state.app.inputCategory);
 
-  const noteToAdd: Note = {
+  /*  const noteToAdd: Note = {
     id: Date.now(),
     date: 'string',
     note: 'string',
     isActive: true,
     datesInNote: 'test',
-  };
+  }; */
 
   const btnAddClick = () => {
     console.log(inputNote, inputCategory);
@@ -57,6 +63,30 @@ function App(): ReactElement {
         btnShowArchiveClick={btnShowArchiveClick}
       />
       <InputsField />
+
+      <div className="info-section">
+        <div className="notes-field__wrapper">
+          <p className="notes-field__title">Notes</p>
+          <section className="notes-field">
+            {notes.map(note => (
+              <NoteComponent
+                key={note.id}
+                id={note.id}
+                note={note.note}
+                date={note.date}
+                category={note.category}
+                datesInNote={note.datesInNote}
+                isActive={note.isActive}
+              />
+            ))}
+          </section>
+        </div>
+
+        <div className="summary-field__wrapper">
+          <p className="summary-field__title">Summary</p>
+          <section className="summary-field">summaries</section>
+        </div>
+      </div>
     </div>
   );
 }
