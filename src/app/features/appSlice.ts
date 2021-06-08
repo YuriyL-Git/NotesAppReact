@@ -6,6 +6,8 @@ const stateInit = {
   blinkCategoryClass: '',
   inputNote: '',
   inputCategory: '',
+  showNotesActiveClass: 'btn-active',
+  showArchiveActiveClass: '',
 };
 
 const appSlice = createSlice({
@@ -14,9 +16,13 @@ const appSlice = createSlice({
   reducers: {
     showActiveNotes: state => {
       state.isActiveNotes = true;
+      state.showNotesActiveClass = 'btn-active';
+      state.showArchiveActiveClass = '';
     },
     showArchiveNotes: state => {
       state.isActiveNotes = false;
+      state.showArchiveActiveClass = 'btn-active';
+      state.showNotesActiveClass = '';
     },
 
     blinkNote: state => {

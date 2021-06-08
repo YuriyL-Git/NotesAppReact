@@ -7,6 +7,7 @@ import {
   showArchiveNotes,
   blinkNote,
   blinkCategory,
+  setInputNote,
 } from './features/appSlice';
 
 import './style/App.scss';
@@ -25,6 +26,7 @@ function App(): ReactElement {
 
   const addNote = (noteInput: NoteInput) => {
     dispatch(addNoteAction(noteInput));
+    dispatch(setInputNote(''));
   };
 
   const btnAddClick = () => {
@@ -42,7 +44,6 @@ function App(): ReactElement {
       noteText: inputNote,
       noteCategory: inputCategory,
     };
-
     addNote(noteToAdd);
   };
 
@@ -67,17 +68,20 @@ function App(): ReactElement {
         <div className="notes-field__wrapper">
           <p className="notes-field__title">Notes</p>
           <section className="notes-field">
-            {notes.map(note => (
-              <NoteComponent
-                key={note.id}
-                id={note.id}
-                note={note.note}
-                date={note.date}
-                category={note.category}
-                datesInNote={note.datesInNote}
-                isActive={note.isActive}
-              />
-            ))}
+            {notes.map(note =>
+              note.isActive === isActiveNotes ? (
+                <NoteComponent
+                  key={note.key}
+                  note={note.note}
+                  date={note.date}
+                  category={note.category}
+                  datesInNote={note.datesInNote}
+                  isActive={note.isActive}
+                />
+              ) : (
+                <div />
+              ),
+            )}
           </section>
         </div>
 

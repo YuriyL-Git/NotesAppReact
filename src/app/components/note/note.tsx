@@ -3,17 +3,17 @@ import Note from '../../models/Note';
 import './_note.scss';
 
 const NoteComponent = ({
-  id,
+  key,
   date,
   note,
   category,
   datesInNote,
   isActive,
 }: Note): ReactElement => {
-  const [noteId, setNoteId] = useState(0);
+  const [noteKey, setNoteKey] = useState(0);
   const [noteActive, setNoteActive] = useState(true);
 
-  if (!noteId) setNoteId(id);
+  if (noteKey === 0) setNoteKey(key);
   return (
     <div className="note">
       <div className="note__creation-time">{date}</div>

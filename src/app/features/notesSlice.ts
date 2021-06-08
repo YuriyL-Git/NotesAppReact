@@ -12,7 +12,7 @@ const notesSlice = createSlice({
   initialState: stateInit,
   reducers: {
     editNoteAction: (state, action: PayloadAction<Note>) => {
-      state[action.payload.id].note = action.payload.note;
+      state[action.payload.key].note = action.payload.note;
     },
 
     addNoteAction: (state, action: PayloadAction<NoteInput>) => {
@@ -25,9 +25,9 @@ const notesSlice = createSlice({
       const dates = action.payload.noteText.match(FIND_DATES_REGEX);
       let datesInNote = '';
       if (dates) datesInNote = dates.join(' ');
-      const id = Date.now();
+      const key = Date.now();
       const noteToAdd: Note = {
-        id,
+        key,
         note: action.payload.noteText,
         category: action.payload.noteCategory,
         date: creationDate,
