@@ -58,4 +58,5 @@ export const {
   setInputNote,
   setInputCategory,
 } = appSlice.actions;
+
 export default appSlice.reducer;

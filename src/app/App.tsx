@@ -19,7 +19,6 @@ function App(): ReactElement {
   const dispatch = useAppDispatch();
   const notes = useAppSelector(state => state.notes);
   const isActiveNotes = useAppSelector(state => state.app.isActiveNotes);
-  console.log(notes);
 
   const inputNote = useAppSelector(state => state.app.inputNote);
   const inputCategory = useAppSelector(state => state.app.inputCategory);
@@ -30,16 +29,15 @@ function App(): ReactElement {
   };
 
   const btnAddClick = () => {
-    console.log(inputNote, inputCategory);
     if (!inputNote) {
       dispatch(blinkNote());
       return;
     }
-
     if (!inputCategory) {
       dispatch(blinkCategory());
       return;
     }
+
     const noteToAdd: NoteInput = {
       noteText: inputNote,
       noteCategory: inputCategory,
@@ -71,7 +69,8 @@ function App(): ReactElement {
             {notes.map(note =>
               note.isActive === isActiveNotes ? (
                 <NoteComponent
-                  key={note.key}
+                  key={note.id}
+                  id={note.id}
                   note={note.note}
                   date={note.date}
                   category={note.category}
@@ -79,7 +78,7 @@ function App(): ReactElement {
                   isActive={note.isActive}
                 />
               ) : (
-                <div />
+                ''
               ),
             )}
           </section>
