@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react';
 import Header from './components/header/header';
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
 import { addNoteAction, editNoteAction } from './features/notesSlice';
-import { Note } from './models/Note';
 import {
   showActiveNotes,
   showArchiveNotes,
@@ -13,6 +12,7 @@ import {
 import './style/App.scss';
 import InputsField from './components/input-field/inputs-field';
 import NoteComponent from './components/note/note';
+import NoteInput from './models/NoteInput';
 
 function App(): ReactElement {
   const dispatch = useAppDispatch();
@@ -23,13 +23,9 @@ function App(): ReactElement {
   const inputNote = useAppSelector(state => state.app.inputNote);
   const inputCategory = useAppSelector(state => state.app.inputCategory);
 
-  /*  const noteToAdd: Note = {
-    id: Date.now(),
-    date: 'string',
-    note: 'string',
-    isActive: true,
-    datesInNote: 'test',
-  }; */
+  const addNote = (noteInput: NoteInput) => {
+    dispatch(addNoteAction(noteInput));
+  };
 
   const btnAddClick = () => {
     console.log(inputNote, inputCategory);
@@ -40,7 +36,14 @@ function App(): ReactElement {
 
     if (!inputCategory) {
       dispatch(blinkCategory());
+      return;
     }
+    const noteToAdd: NoteInput = {
+      noteText: inputNote,
+      noteCategory: inputCategory,
+    };
+
+    addNote(noteToAdd);
   };
 
   const btnShowNotesClick = () => {
@@ -49,10 +52,6 @@ function App(): ReactElement {
 
   const btnShowArchiveClick = () => {
     dispatch(showArchiveNotes());
-  };
-
-  const addNote = (note: Note) => {
-    dispatch(addNoteAction(note));
   };
 
   return (

@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react';
-import { Note } from '../../models/Note';
+import Note from '../../models/Note';
 import './_note.scss';
 
 const NoteComponent = ({
