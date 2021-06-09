@@ -49,21 +49,28 @@ const notesSlice = createSlice({
         action.payload.noteCategory,
       );
 
+      const noteIndex = state.findIndex(note => note.id === action.payload.id);
       updatedNote.id = action.payload.id;
-      const index = state.findIndex(note => note.id === action.payload.id);
-      state[index] = updatedNote;
+      updatedNote.isActive = state[noteIndex].isActive;
+      state[noteIndex] = updatedNote;
     },
 
     archiveNoteAction: (state, action: PayloadAction<number>) => {
-      state
-        .filter(note => note.id === action.payload)
-        .forEach(note => {
-          note.isActive = false;
-        });
+      const noteIndex = state.findIndex(note => note.id === action.payload);
+      state[noteIndex].isActive = false;
+    },
+
+    unArchiveNoteAction: (state, action: PayloadAction<number>) => {
+      const noteIndex = state.findIndex(note => note.id === action.payload);
+      state[noteIndex].isActive = true;
     },
   },
 });
 
-export const { updateNoteAction, addNoteAction, archiveNoteAction } =
-  notesSlice.actions;
+export const {
+  updateNoteAction,
+  addNoteAction,
+  archiveNoteAction,
+  unArchiveNoteAction,
+} = notesSlice.actions;
 export default notesSlice.reducer;

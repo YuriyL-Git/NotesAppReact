@@ -6,9 +6,16 @@ import {
   faTrash,
   faCheck,
   faTimes,
+  faUndo,
 } from '@fortawesome/free-solid-svg-icons';
+
+import {
+  updateNoteAction,
+  archiveNoteAction,
+  unArchiveNoteAction,
+} from '../../features/notesSlice';
+
 import { useAppDispatch } from '../../hooks/hooks';
-import { updateNoteAction, archiveNoteAction } from '../../features/notesSlice';
 import Select from '../select/select';
 import Note from '../../models/Note';
 import './_note.scss';
@@ -19,6 +26,7 @@ const NoteComponent = ({
   note,
   category,
   datesInNote,
+  isActive,
 }: Note): ReactElement => {
   const dispatch = useAppDispatch();
   const [blinkNote, setBlinkNote] = useState('');
@@ -65,6 +73,10 @@ const NoteComponent = ({
     dispatch(archiveNoteAction(id));
   };
 
+  const onUnArchive = () => {
+    dispatch(unArchiveNoteAction(id));
+  };
+
   const onDelete = () => {
     console.log('delete');
   };
@@ -93,9 +105,18 @@ const NoteComponent = ({
             onClick={onEdit}
           />
           <FontAwesomeIcon
-            className="icon-note icon-note--archive"
+            className={`icon-note icon-note--archive ${
+              isActive ? '' : 'hidden'
+            }`}
             icon={faArchive}
             onClick={onArchive}
+          />
+          <FontAwesomeIcon
+            className={`icon-note icon-note--unArchive ${
+              isActive ? 'hidden' : ''
+            }`}
+            icon={faUndo}
+            onClick={onUnArchive}
           />
           <FontAwesomeIcon
             className="icon-note icon-note--delete"
