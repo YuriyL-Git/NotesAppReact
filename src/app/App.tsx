@@ -14,6 +14,7 @@ import './style/App.scss';
 import InputsField from './components/input-field/inputs-field';
 import NoteComponent from './components/note/note';
 import NoteInput from './models/NoteInput';
+import SummaryTable from './components/summary-table/summary-table';
 
 function App(): ReactElement {
   const dispatch = useAppDispatch();
@@ -84,9 +85,9 @@ function App(): ReactElement {
           </section>
         </div>
 
-        <div className="summary-field__wrapper">
-          <p className="summary-field__title">Summary</p>
-          <section className="summary-field">summaries</section>
+        <div className="summary-table__wrapper">
+          <p className="summary-table__title">Summary</p>
+          <SummaryTable />
         </div>
       </div>
     </div>
