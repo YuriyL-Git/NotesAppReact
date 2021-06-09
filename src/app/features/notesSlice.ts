@@ -64,6 +64,9 @@ const notesSlice = createSlice({
       const noteIndex = state.findIndex(note => note.id === action.payload);
       state[noteIndex].isActive = true;
     },
+
+    deleteNoteAction: (state, action: PayloadAction<number>) =>
+      state.filter(note => note.id !== action.payload),
   },
 });
 
@@ -72,5 +75,6 @@ export const {
   addNoteAction,
   archiveNoteAction,
   unArchiveNoteAction,
+  deleteNoteAction,
 } = notesSlice.actions;
 export default notesSlice.reducer;

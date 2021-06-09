@@ -13,6 +13,7 @@ import {
   updateNoteAction,
   archiveNoteAction,
   unArchiveNoteAction,
+  deleteNoteAction,
 } from '../../features/notesSlice';
 
 import { useAppDispatch } from '../../hooks/hooks';
@@ -63,6 +64,7 @@ const NoteComponent = ({
     dispatch(updateNoteAction(updatedNote));
     showViewMode();
   };
+
   const onReject = () => {
     showViewMode();
     setEditedNote(note);
@@ -78,7 +80,8 @@ const NoteComponent = ({
   };
 
   const onDelete = () => {
-    console.log('delete');
+    console.log('delete', id);
+    dispatch(deleteNoteAction(id));
   };
 
   const noteAnimationEnd = () => {
