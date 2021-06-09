@@ -30,6 +30,7 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "jsx-a11y/no-autofocus": "off",
     "no-param-reassign": [
       "off",
       {

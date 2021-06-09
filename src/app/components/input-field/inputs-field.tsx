@@ -7,6 +7,7 @@ import {
   setInputCategory,
 } from '../../features/appSlice';
 import './_inputs-field.scss';
+import Select from '../select/select';
 
 const InputsField = (): ReactElement => {
   const dispatch = useAppDispatch();
@@ -16,12 +17,17 @@ const InputsField = (): ReactElement => {
   const noteText = useAppSelector(state => state.app.inputNote);
   const noteCategory = useAppSelector(state => state.app.inputCategory);
 
+  const inputOnChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if (!event.target) return;
+    const inputValue = event.target.value;
+    dispatch(setInputCategory(inputValue));
+  };
+
   return (
     <div className="note-to-add__wrapper">
       <section className="note-to-add">
         <textarea
           className={`note-to-add__input ${blinkNote}`}
-          id=""
           cols={30}
           rows={10}
           value={noteText}
@@ -31,21 +37,12 @@ const InputsField = (): ReactElement => {
           placeholder="enter your note"
           onAnimationEnd={() => dispatch(stopBlinkNote())}
         />
-        <select
+        <Select
           className={`note-to-add__select ${blinkCategory}`}
           value={noteCategory}
-          onChange={event => {
-            dispatch(setInputCategory(event.target.value));
-          }}
+          onChange={inputOnChange}
           onAnimationEnd={() => dispatch(stopBlinkCategory())}
-        >
-          <option hidden disabled value="">
-            category
-          </option>
-          <option value="Task">Task</option>
-          <option value="Random Thought">Random Thought</option>
-          <option value="Idea">Idea</option>
-        </select>
+        />
       </section>
     </div>
   );

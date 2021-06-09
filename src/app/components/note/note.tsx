@@ -1,10 +1,17 @@
 import React, { ReactElement, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faArchive, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEdit,
+  faArchive,
+  faTrash,
+  faCheck,
+  faTimes,
+} from '@fortawesome/free-solid-svg-icons';
+import { useAppDispatch } from '../../hooks/hooks';
+import { updateNoteAction, archiveNoteAction } from '../../features/notesSlice';
+import Select from '../select/select';
 import Note from '../../models/Note';
 import './_note.scss';
-import { useAppDispatch } from '../../hooks/hooks';
-import { archiveNoteAction } from '../../features/notesSlice';
 
 const NoteComponent = ({
   id,
@@ -13,31 +20,77 @@ const NoteComponent = ({
   category,
   datesInNote,
 }: Note): ReactElement => {
-  /*  const [noteId, setNoteId] = useState(0);
-  const [noteActive, setNoteActive] = useState(true);
-  if (!noteId) setNoteId(id); */
-
   const dispatch = useAppDispatch();
+  const [blinkNote, setBlinkNote] = useState('');
+  const [editedCategory, setEditedCategory] = useState(category);
+  const [editedNote, setEditedNote] = useState(note);
 
-  const handleClick = () => {
-    console.log('clicked', id);
+  const [hiddenIfEditOff, setHiddenIfEditOff] = useState('hidden');
+  const [hiddenIfEditOn, setHiddenIfEditOn] = useState('');
+
+  const showEditMode = () => {
+    setHiddenIfEditOff('');
+    setHiddenIfEditOn('hidden');
+  };
+
+  const showViewMode = () => {
+    setHiddenIfEditOff('hidden');
+    setHiddenIfEditOn('');
+  };
+
+  const onEdit = () => {
+    showEditMode();
+  };
+
+  const onSave = () => {
+    if (!editedNote) {
+      setBlinkNote('blink-effect');
+      return;
+    }
+    const updatedNote = {
+      id,
+      noteText: editedNote,
+      noteCategory: editedCategory,
+    };
+    dispatch(updateNoteAction(updatedNote));
+    showViewMode();
+  };
+  const onReject = () => {
+    showViewMode();
+    setEditedNote(note);
+    setEditedCategory(category);
   };
 
   const onArchive = () => {
-    console.log('clicked', id);
     dispatch(archiveNoteAction(id));
+  };
+
+  const onDelete = () => {
+    console.log('delete');
+  };
+
+  const noteAnimationEnd = () => {
+    setBlinkNote('');
   };
 
   return (
     <div className="note" key={id}>
-      <div className="note__creation-time">{date}</div>
+      <div className="note__creation-time">
+        <div className={`${hiddenIfEditOn}`}>{date}</div>
+      </div>
       <div className="note__content">
         {note}
-        <div className="note__controls-wrapper">
+        <textarea
+          className={`note-edit__input ${blinkNote} ${hiddenIfEditOff}`}
+          value={editedNote}
+          onChange={event => setEditedNote(event.target.value)}
+          onAnimationEnd={noteAnimationEnd}
+        />
+        <div className={`note__controls-wrapper ${hiddenIfEditOn}`}>
           <FontAwesomeIcon
             className="icon-note icon-note--edit"
             icon={faEdit}
-            onClick={handleClick}
+            onClick={onEdit}
           />
           <FontAwesomeIcon
             className="icon-note icon-note--archive"
@@ -47,12 +100,34 @@ const NoteComponent = ({
           <FontAwesomeIcon
             className="icon-note icon-note--delete"
             icon={faTrash}
-            onClick={handleClick}
+            onClick={onDelete}
           />
         </div>
       </div>
-      <div className="note__category">{category}</div>
-      <div className="note__dates-in-note">{datesInNote}</div>
+      <div className="note__category">
+        {category}
+        <Select
+          onChange={event => setEditedCategory(event.target.value)}
+          className={`note-edit__select  ${hiddenIfEditOff}`}
+          value={editedCategory}
+          onAnimationEnd={() => {}}
+        />
+      </div>
+      <div className="note__dates-in-note">
+        <div className={`btn-confirm__wrapper ${hiddenIfEditOff}`}>
+          <FontAwesomeIcon
+            className="icon-on-edit icon-note--confirm"
+            icon={faCheck}
+            onClick={onSave}
+          />
+          <FontAwesomeIcon
+            className="icon-on-edit icon-note--reject"
+            icon={faTimes}
+            onClick={onReject}
+          />
+        </div>
+        <div className={`${hiddenIfEditOn}`}>{datesInNote}</div>
+      </div>
     </div>
   );
 };

@@ -2,39 +2,56 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import mockState from '../mock/mock.json';
 import Note from '../models/Note';
 import NoteInput from '../models/NoteInput';
+import NoteEdit from '../models/NoteEdit';
 
 const FIND_DATES_REGEX = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
 
 const stateInit = mockState as Array<Note>;
+
+const getNote = (noteText: string, noteCategory: string): Note => {
+  const creationDate = new Date()
+    .toJSON()
+    .slice(0, 10)
+    .split('-')
+    .reverse()
+    .join('/');
+
+  const dates = noteText.match(FIND_DATES_REGEX);
+  let datesInNote = '';
+  if (dates) datesInNote = dates.join(' ');
+  const noteId = Date.now();
+
+  return {
+    id: noteId,
+    note: noteText,
+    category: noteCategory,
+    date: creationDate,
+    datesInNote,
+    isActive: true,
+  };
+};
 
 const notesSlice = createSlice({
   name: 'notes',
   initialState: stateInit,
   reducers: {
     addNoteAction: (state, action: PayloadAction<NoteInput>) => {
-      const creationDate = new Date()
-        .toJSON()
-        .slice(0, 10)
-        .split('-')
-        .reverse()
-        .join('/');
-      const dates = action.payload.noteText.match(FIND_DATES_REGEX);
-      let datesInNote = '';
-      if (dates) datesInNote = dates.join(' ');
-      const noteId = Date.now();
-      const noteToAdd: Note = {
-        id: noteId,
-        note: action.payload.noteText,
-        category: action.payload.noteCategory,
-        date: creationDate,
-        datesInNote,
-        isActive: true,
-      };
+      const noteToAdd = getNote(
+        action.payload.noteText,
+        action.payload.noteCategory,
+      );
       state.push(noteToAdd);
     },
 
-    editNoteAction: (state, action: PayloadAction<Note>) => {
-      state[action.payload.id].note = action.payload.note;
+    updateNoteAction: (state, action: PayloadAction<NoteEdit>) => {
+      const updatedNote = getNote(
+        action.payload.noteText,
+        action.payload.noteCategory,
+      );
+
+      updatedNote.id = action.payload.id;
+      const index = state.findIndex(note => note.id === action.payload.id);
+      state[index] = updatedNote;
     },
 
     archiveNoteAction: (state, action: PayloadAction<number>) => {
@@ -47,6 +64,6 @@ const notesSlice = createSlice({
   },
 });
 
-export const { editNoteAction, addNoteAction, archiveNoteAction } =
+export const { updateNoteAction, addNoteAction, archiveNoteAction } =
   notesSlice.actions;
 export default notesSlice.reducer;

@@ -73,7 +73,7 @@
 
 .blink-effect {
   animation: blink 0.8s ease-in-out;
-  background-color: #dfc3c3;
+  background: #dfc3c3!important;
 }
 
 @keyframes blink {

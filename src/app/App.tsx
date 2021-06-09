@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import Header from './components/header/header';
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
-import { addNoteAction, editNoteAction } from './features/notesSlice';
+import { addNoteAction } from './features/notesSlice';
 import {
   showActiveNotes,
   showArchiveNotes,
