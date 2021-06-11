@@ -1,6 +1,6 @@
 [
   {
-    "id": 123,
+    "id": 1,
     "date": "01/06/21",
     "note": "Doctor appointment 02/06/21",
     "category": "Task",
@@ -8,7 +8,7 @@
     "datesInNote": "02/06/21"
   },
   {
-    "id": 223,
+    "id": 2,
     "date": "01/06/21",
     "note": "Meeting with the customer was moved from 03/06/21 to 05/06/21",
     "category": "Task",
@@ -16,7 +16,7 @@
     "datesInNote": "03/06/21\r\n05/06/21"
   },
   {
-    "id": 323,
+    "id": 3,
     "date": "02/06/21",
     "note": "Visit to dentist is appointed on 04/06/21",
     "category": "Task",
@@ -24,7 +24,7 @@
     "datesInNote": "04/06/21"
   },
   {
-    "id": 423,
+    "id": 4,
     "date": "03/06/21",
     "note": "Don't forget to pay for a rent",
     "category": "Random Thought",
@@ -32,7 +32,7 @@
     "datesInNote": ""
   },
   {
-    "id": 523,
+    "id": 5,
     "date": "04/06/21",
     "note": "Finish todo app till 13/06/21",
     "category": "Idea",
@@ -40,7 +40,7 @@
     "datesInNote": "13/06/21"
   },
   {
-    "id": 623,
+    "id": 6,
     "date": "05/06/21",
     "note": "Conduct additional research on Redux",
     "category": "Task",
@@ -48,7 +48,7 @@
     "datesInNote": ""
   },
   {
-    "id": 723,
+    "id": 7,
     "date": "06/06/21",
     "note": "Pay electricity bills till 12/06/21",
     "category": "Task",
