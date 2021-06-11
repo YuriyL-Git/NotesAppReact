@@ -4,7 +4,7 @@
     "date": "01/06/21",
     "note": "Doctor appointment 02/06/21",
     "category": "Task",
-    "isActive": false,
+    "isActive": true,
     "datesInNote": "02/06/21"
   },
   {
@@ -13,7 +13,7 @@
     "note": "Meeting with the customer was moved from 03/06/21 to 05/06/21",
     "category": "Task",
     "isActive": true,
-    "datesInNote": "03/06/21 05/06/21"
+    "datesInNote": "03/06/21\r\n05/06/21"
   },
   {
     "id": 323,

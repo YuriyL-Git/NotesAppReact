@@ -3,20 +3,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faEdit,
   faArchive,
-  faTrash,
+  faTrashAlt,
   faCheck,
   faTimes,
   faUndo,
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
-  updateNoteAction,
-  archiveNoteAction,
-  unArchiveNoteAction,
-  deleteNoteAction,
+  updateNote,
+  archiveNote,
+  unArchiveNote,
+  deleteNote,
 } from '../../features/notesSlice';
 
-import { useAppDispatch } from '../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import Select from '../select/select';
 import Note from '../../models/Note';
 import './_note.scss';
@@ -36,6 +36,10 @@ const NoteComponent = ({
 
   const [hiddenIfEditOff, setHiddenIfEditOff] = useState('hidden');
   const [hiddenIfEditOn, setHiddenIfEditOn] = useState('');
+  const allCategories = useAppSelector(state => state.app.categories);
+
+  if (!allCategories.includes(editedCategory) && allCategories.length > 0)
+    setEditedCategory(allCategories[0]);
 
   const showEditMode = () => {
     setHiddenIfEditOff('');
@@ -61,7 +65,7 @@ const NoteComponent = ({
       noteText: editedNote,
       noteCategory: editedCategory,
     };
-    dispatch(updateNoteAction(updatedNote));
+    dispatch(updateNote(updatedNote));
     showViewMode();
   };
 
@@ -72,16 +76,15 @@ const NoteComponent = ({
   };
 
   const onArchive = () => {
-    dispatch(archiveNoteAction(id));
+    dispatch(archiveNote(id));
   };
 
   const onUnArchive = () => {
-    dispatch(unArchiveNoteAction(id));
+    dispatch(unArchiveNote(id));
   };
 
   const onDelete = () => {
-    console.log('delete', id);
-    dispatch(deleteNoteAction(id));
+    dispatch(deleteNote(id));
   };
 
   const noteAnimationEnd = () => {
@@ -89,17 +92,16 @@ const NoteComponent = ({
   };
 
   return (
-    <div className="note" key={id}>
-      <div className="note__creation-time">
-        <div className={`${hiddenIfEditOn}`}>{date}</div>
-      </div>
+    <div className={`note ${isActive ? '' : 'note--archived'}`} key={id}>
+      <div className="note__creation-time">{date}</div>
       <div className="note__content">
-        {note}
+        <div className={`${hiddenIfEditOn}`}>{note}</div>
         <textarea
           className={`note-edit__input ${blinkNote} ${hiddenIfEditOff}`}
           value={editedNote}
           onChange={event => setEditedNote(event.target.value)}
           onAnimationEnd={noteAnimationEnd}
+          placeholder="enter your note"
         />
         <div className={`note__controls-wrapper ${hiddenIfEditOn}`}>
           <FontAwesomeIcon
@@ -115,7 +117,7 @@ const NoteComponent = ({
             onClick={onArchive}
           />
           <FontAwesomeIcon
-            className={`icon-note icon-note--unArchive ${
+            className={`icon-note icon-note--un-archive ${
               isActive ? 'hidden' : ''
             }`}
             icon={faUndo}
@@ -123,17 +125,18 @@ const NoteComponent = ({
           />
           <FontAwesomeIcon
             className="icon-note icon-note--delete"
-            icon={faTrash}
+            icon={faTrashAlt}
             onClick={onDelete}
           />
         </div>
       </div>
       <div className="note__category">
-        {category}
+        <div className={`${hiddenIfEditOn}`}>{category}</div>
         <Select
           onChange={event => setEditedCategory(event.target.value)}
           className={`note-edit__select  ${hiddenIfEditOff}`}
           value={editedCategory}
+          options={allCategories}
           onAnimationEnd={() => {}}
         />
       </div>

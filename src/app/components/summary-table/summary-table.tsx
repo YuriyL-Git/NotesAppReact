@@ -7,6 +7,16 @@ interface SummaryData {
   notesQty: number;
 }
 
+const compare = (a: SummaryData, b: SummaryData) => {
+  if (a.notesQty > b.notesQty) {
+    return -1;
+  }
+  if (a.notesQty < b.notesQty) {
+    return 1;
+  }
+  return 0;
+};
+
 const SummaryTable = (): ReactElement => {
   const notes = useAppSelector(state => state.notes);
   const isActiveNotes = useAppSelector(state => state.app.isActiveNotes);
@@ -22,6 +32,8 @@ const SummaryTable = (): ReactElement => {
     ).length;
     summaryData.push({ category, notesQty });
   });
+
+  summaryData.sort(compare);
 
   return (
     <section className="summary-table">

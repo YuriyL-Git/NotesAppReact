@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "prettier": "@imaginary-cloud/prettier-config",
+  "homepage": "./",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",

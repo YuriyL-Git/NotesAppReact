@@ -14,12 +14,7 @@ const Header = ({
   btnShowNotesClick,
   btnShowArchiveClick,
 }: Props): ReactElement => {
-  const btnShowNotesActive = useAppSelector(
-    state => state.app.showNotesActiveClass,
-  );
-  const btnArchiveActive = useAppSelector(
-    state => state.app.showArchiveActiveClass,
-  );
+  const isActiveNotes = useAppSelector(state => state.app.isActiveNotes);
   return (
     <header className="header">
       <div className="header__control-btn-wrapper">
@@ -27,13 +22,17 @@ const Header = ({
       </div>
       <div className="header__render-btn-wrapper">
         <Button
-          label="To Notes"
-          className={`btn header__btn-control  ${btnShowNotesActive}`}
+          label="Notes"
+          className={`btn header__btn-control  ${
+            isActiveNotes ? 'btn-active' : ''
+          }`}
           onClick={btnShowNotesClick}
         />
         <Button
-          label="To Archive"
-          className={`btn header__btn-control  ${btnArchiveActive}`}
+          label="Archive"
+          className={`btn header__btn-control  ${
+            isActiveNotes ? '' : 'btn-active'
+          }`}
           onClick={btnShowArchiveClick}
         />
       </div>

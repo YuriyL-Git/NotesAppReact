@@ -23,12 +23,18 @@
 
   &__btn-control {
     width: 18rem !important;
-    background-color: #1299cc !important;
+    background-color: #374e91f2 !important;
+    font-size: 3rem !important;
+
+    &:hover{
+      transform: scale(1)!important;
+      background-color: #374e91b5 !important;
+    }
   }
 }
 
 .btn-active {
-  text-decoration: underline;
+  border: 2px solid #a1f41d !important;
 }
 
 .hidden {

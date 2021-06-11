@@ -4,11 +4,15 @@ const stateInit = {
   isActiveNotes: true,
   blinkNoteClass: '',
   blinkCategoryClass: '',
-  inputNote: '',
-  inputCategory: '',
-  showNotesActiveClass: 'btn-active',
-  showArchiveActiveClass: '',
+  textareaNote: '',
+  selectCategory: '',
+  categories: ['Random Thought', 'Idea', 'Task'],
 };
+
+interface UpdateCategory {
+  oldValue: string;
+  newValue: string;
+}
 
 const appSlice = createSlice({
   name: 'app',
@@ -16,18 +20,16 @@ const appSlice = createSlice({
   reducers: {
     showActiveNotes: state => {
       state.isActiveNotes = true;
-      state.showNotesActiveClass = 'btn-active';
-      state.showArchiveActiveClass = '';
     },
+
     showArchiveNotes: state => {
       state.isActiveNotes = false;
-      state.showArchiveActiveClass = 'btn-active';
-      state.showNotesActiveClass = '';
     },
 
     blinkNote: state => {
       state.blinkNoteClass = 'blink-effect';
     },
+
     stopBlinkNote: state => {
       state.blinkNoteClass = '';
     },
@@ -35,15 +37,43 @@ const appSlice = createSlice({
     blinkCategory: state => {
       state.blinkCategoryClass = 'blink-effect';
     },
+
     stopBlinkCategory: state => {
       state.blinkCategoryClass = '';
     },
 
-    setInputNote: (state, action: PayloadAction<string>) => {
-      state.inputNote = action.payload;
+    setTextareaNote: (state, action: PayloadAction<string>) => {
+      state.textareaNote = action.payload;
     },
-    setInputCategory: (state, action: PayloadAction<string>) => {
-      state.inputCategory = action.payload;
+
+    setSelectCategory: (state, action: PayloadAction<string>) => {
+      state.selectCategory = action.payload;
+    },
+
+    updateCategory: (state, action: PayloadAction<UpdateCategory>) => {
+      if (state.categories.includes(action.payload.newValue)) return;
+
+      if (action.payload.newValue.length > 0) {
+        if (!action.payload.oldValue) {
+          state.categories.push(action.payload.newValue);
+          state.selectCategory = action.payload.newValue;
+          return;
+        }
+
+        const index = state.categories.findIndex(
+          cat => cat === action.payload.oldValue,
+        );
+        if (index !== -1) {
+          state.categories[index] = action.payload.newValue;
+          state.selectCategory = action.payload.newValue;
+        }
+      }
+    },
+
+    removeCategory: (state, action: PayloadAction<string>) => {
+      const index = state.categories.findIndex(cat => cat === action.payload);
+      if (index === -1) return;
+      state.categories.splice(index, 1);
     },
   },
 });
@@ -55,8 +85,10 @@ export const {
   stopBlinkNote,
   blinkCategory,
   stopBlinkCategory,
-  setInputNote,
-  setInputCategory,
+  setTextareaNote,
+  setSelectCategory,
+  updateCategory,
+  removeCategory,
 } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -18,7 +18,7 @@ const getNote = (noteText: string, noteCategory: string): Note => {
 
   const dates = noteText.match(FIND_DATES_REGEX);
   let datesInNote = '';
-  if (dates) datesInNote = dates.join(' ');
+  if (dates) datesInNote = dates.join('\r\n');
   const noteId = Date.now();
 
   return {
@@ -35,7 +35,7 @@ const notesSlice = createSlice({
   name: 'notes',
   initialState: stateInit,
   reducers: {
-    addNoteAction: (state, action: PayloadAction<NoteInput>) => {
+    addNote: (state, action: PayloadAction<NoteInput>) => {
       const noteToAdd = getNote(
         action.payload.noteText,
         action.payload.noteCategory,
@@ -43,7 +43,7 @@ const notesSlice = createSlice({
       state.push(noteToAdd);
     },
 
-    updateNoteAction: (state, action: PayloadAction<NoteEdit>) => {
+    updateNote: (state, action: PayloadAction<NoteEdit>) => {
       const updatedNote = getNote(
         action.payload.noteText,
         action.payload.noteCategory,
@@ -55,26 +55,21 @@ const notesSlice = createSlice({
       state[noteIndex] = updatedNote;
     },
 
-    archiveNoteAction: (state, action: PayloadAction<number>) => {
+    archiveNote: (state, action: PayloadAction<number>) => {
       const noteIndex = state.findIndex(note => note.id === action.payload);
       state[noteIndex].isActive = false;
     },
 
-    unArchiveNoteAction: (state, action: PayloadAction<number>) => {
+    unArchiveNote: (state, action: PayloadAction<number>) => {
       const noteIndex = state.findIndex(note => note.id === action.payload);
       state[noteIndex].isActive = true;
     },
 
-    deleteNoteAction: (state, action: PayloadAction<number>) =>
+    deleteNote: (state, action: PayloadAction<number>) =>
       state.filter(note => note.id !== action.payload),
   },
 });
 
-export const {
-  updateNoteAction,
-  addNoteAction,
-  archiveNoteAction,
-  unArchiveNoteAction,
-  deleteNoteAction,
-} = notesSlice.actions;
+export const { updateNote, addNote, archiveNote, unArchiveNote, deleteNote } =
+  notesSlice.actions;
 export default notesSlice.reducer;

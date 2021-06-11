@@ -1,13 +1,13 @@
 import React, { ReactElement } from 'react';
 import Header from './components/header/header';
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
-import { addNoteAction } from './features/notesSlice';
+import { addNote } from './features/notesSlice';
 import {
   showActiveNotes,
   showArchiveNotes,
   blinkNote,
   blinkCategory,
-  setInputNote,
+  setTextareaNote,
 } from './features/appSlice';
 
 import './style/App.scss';
@@ -18,15 +18,15 @@ import SummaryTable from './components/summary-table/summary-table';
 
 function App(): ReactElement {
   const dispatch = useAppDispatch();
-  const notes = useAppSelector(state => state.notes);
+  const allNotes = useAppSelector(state => state.notes);
   const isActiveNotes = useAppSelector(state => state.app.isActiveNotes);
 
-  const inputNote = useAppSelector(state => state.app.inputNote);
-  const inputCategory = useAppSelector(state => state.app.inputCategory);
+  const inputNote = useAppSelector(state => state.app.textareaNote);
+  const inputCategory = useAppSelector(state => state.app.selectCategory);
 
-  const addNote = (noteInput: NoteInput) => {
-    dispatch(addNoteAction(noteInput));
-    dispatch(setInputNote(''));
+  const addNewNote = (noteInput: NoteInput) => {
+    dispatch(addNote(noteInput));
+    dispatch(setTextareaNote(''));
   };
 
   const btnAddClick = () => {
@@ -43,7 +43,8 @@ function App(): ReactElement {
       noteText: inputNote,
       noteCategory: inputCategory,
     };
-    addNote(noteToAdd);
+    addNewNote(noteToAdd);
+    dispatch(showActiveNotes());
   };
 
   const btnShowNotesClick = () => {
@@ -61,13 +62,16 @@ function App(): ReactElement {
         btnShowNotesClick={btnShowNotesClick}
         btnShowArchiveClick={btnShowArchiveClick}
       />
+
       <InputsField />
 
-      <div className="info-section">
+      <div className="notes-section">
         <div className="notes-field__wrapper">
-          <p className="notes-field__title">Notes</p>
+          <p className="notes-field__title">
+            {isActiveNotes ? 'Notes' : 'Archive'}
+          </p>
           <section className="notes-field">
-            {notes.map(note =>
+            {allNotes.map(note =>
               note.isActive === isActiveNotes ? (
                 <NoteComponent
                   key={note.id}
