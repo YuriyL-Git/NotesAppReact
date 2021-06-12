@@ -2,6 +2,11 @@ import React, { ReactElement } from 'react';
 import Header from './components/header/header';
 import { useAppDispatch, useAppSelector } from './hooks/hooks';
 import { addNote } from './features/notesSlice';
+import './style/App.scss';
+import InputsField from './components/input-field/inputs-field';
+import NoteComponent from './components/note/note';
+import NoteInput from './models/NoteInput';
+import SummaryTable from './components/summary-table/summary-table';
 import {
   showActiveNotes,
   showArchiveNotes,
@@ -10,17 +15,10 @@ import {
   setTextareaNote,
 } from './features/appSlice';
 
-import './style/App.scss';
-import InputsField from './components/input-field/inputs-field';
-import NoteComponent from './components/note/note';
-import NoteInput from './models/NoteInput';
-import SummaryTable from './components/summary-table/summary-table';
-
 function App(): ReactElement {
   const dispatch = useAppDispatch();
   const allNotes = useAppSelector(state => state.notes);
   const isActiveNotes = useAppSelector(state => state.app.isActiveNotes);
-
   const inputNote = useAppSelector(state => state.app.textareaNote);
   const inputCategory = useAppSelector(state => state.app.selectCategory);
 
@@ -38,7 +36,6 @@ function App(): ReactElement {
       dispatch(blinkCategory());
       return;
     }
-
     const noteToAdd: NoteInput = {
       noteText: inputNote,
       noteCategory: inputCategory,
@@ -62,9 +59,7 @@ function App(): ReactElement {
         btnShowNotesClick={btnShowNotesClick}
         btnShowArchiveClick={btnShowArchiveClick}
       />
-
       <InputsField />
-
       <div className="notes-section">
         <div className="notes-field__wrapper">
           <p className="notes-field__title">
@@ -88,7 +83,6 @@ function App(): ReactElement {
             )}
           </section>
         </div>
-
         <div className="summary-table__wrapper">
           <p className="summary-table__title">Summary</p>
           <SummaryTable />

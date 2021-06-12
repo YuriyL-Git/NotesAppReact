@@ -3,33 +3,9 @@ import mockState from '../mock/mock.json';
 import Note from '../models/Note';
 import NoteInput from '../models/NoteInput';
 import NoteEdit from '../models/NoteEdit';
-
-const FIND_DATES_REGEX = /(\d{1,4}([.\-/])\d{1,2}([.\-/])\d{1,4})/g;
+import getNote from '../helpers/get-note';
 
 const stateInit = mockState as Array<Note>;
-
-const getNote = (noteText: string, noteCategory: string): Note => {
-  const creationDate = new Date()
-    .toJSON()
-    .slice(0, 10)
-    .split('-')
-    .reverse()
-    .join('/');
-
-  const dates = noteText.match(FIND_DATES_REGEX);
-  let datesInNote = '';
-  if (dates) datesInNote = dates.join('\r\n');
-  const noteId = Date.now();
-
-  return {
-    id: noteId,
-    note: noteText,
-    category: noteCategory,
-    date: creationDate,
-    datesInNote,
-    isActive: true,
-  };
-};
 
 const notesSlice = createSlice({
   name: 'notes',
@@ -48,7 +24,6 @@ const notesSlice = createSlice({
         action.payload.noteText,
         action.payload.noteCategory,
       );
-
       const noteIndex = state.findIndex(note => note.id === action.payload.id);
       updatedNote.id = action.payload.id;
       updatedNote.isActive = state[noteIndex].isActive;

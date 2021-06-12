@@ -32,7 +32,6 @@ const SummaryTable = (): ReactElement => {
     ).length;
     summaryData.push({ category, notesQty });
   });
-
   summaryData.sort(compare);
 
   return (

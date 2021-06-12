@@ -8,14 +8,12 @@ import {
   faTimes,
   faUndo,
 } from '@fortawesome/free-solid-svg-icons';
-
 import {
   updateNote,
   archiveNote,
   unArchiveNote,
   deleteNote,
 } from '../../features/notesSlice';
-
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import Select from '../select/select';
 import Note from '../../models/Note';

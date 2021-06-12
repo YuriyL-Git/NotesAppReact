@@ -31,7 +31,6 @@ const InputsField = (): ReactElement => {
   const [hiddenIfEditOff, setHiddenIfEditOff] = useState('hidden');
   const [hiddenIfEditOn, setHiddenIfEditOn] = useState('');
   const [scaleBtns, setScaleBtns] = useState('');
-
   const [categoryInput, setCategoryInput] = useState('');
 
   const showEditMode = () => {
@@ -58,7 +57,6 @@ const InputsField = (): ReactElement => {
   };
 
   const onRemove = () => {
-    console.log('noteCategory', noteCategory);
     dispatch(removeCategory(noteCategory));
     dispatch(setSelectCategory(''));
   };
@@ -113,26 +111,22 @@ const InputsField = (): ReactElement => {
             onAnimationEnd={() => dispatch(stopBlinkCategory())}
           />
         </div>
-
         <div className={`select-category__btn-wrapper ${scaleBtns}`}>
           <FontAwesomeIcon
             className={`select-category__btn select-category__btn--green ${hiddenIfEditOn}`}
             icon={faPlus}
             onClick={onAdd}
           />
-
           <FontAwesomeIcon
             className={`select-category__btn select-category__btn--green ${hiddenIfEditOn}`}
             icon={faEdit}
             onClick={onEdit}
           />
-
           <FontAwesomeIcon
             className={`select-category__btn select-category__btn--red ${hiddenIfEditOn}`}
             icon={faTrashAlt}
             onClick={onRemove}
           />
-
           <FontAwesomeIcon
             className={`select-category__btn select-category__btn--green ${hiddenIfEditOff}`}
             icon={faCheck}

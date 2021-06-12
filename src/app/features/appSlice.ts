@@ -59,7 +59,6 @@ const appSlice = createSlice({
           state.selectCategory = action.payload.newValue;
           return;
         }
-
         const index = state.categories.findIndex(
           cat => cat === action.payload.oldValue,
         );
