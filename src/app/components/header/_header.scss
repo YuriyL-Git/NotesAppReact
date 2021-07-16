@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+
+  &__control-btn-wrapper {
+    margin: 1rem 0 0 2rem;
+    width: 65rem;
+    height: 4rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__btn-add {
+    background-color: green !important;
+  }
+
+  &__render-btn-wrapper {
+    width: 37.5rem;
+    display: flex;
+    margin: 1rem 2rem 0 2rem;
+    justify-content: space-between;
+  }
+
+  &__btn-control {
+    width: 18rem !important;
+    background-color: #374e91f2 !important;
+    font-size: 3rem !important;
+
+    &:hover{
+      transform: scale(1)!important;
+      background-color: #374e91b5 !important;
+    }
+  }
+}
+
+.btn-active {
+  border: 2px solid #a1f41d !important;
+}
+
+.hidden {
+  display: none;
+}

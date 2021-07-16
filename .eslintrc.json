@@ -1,0 +1,62 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "airbnb-typescript",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "semicolon": [
+      true,
+      "always",
+      "ignore-bound-class-methods"
+    ],
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "prettier",
+    "react",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "jsx-a11y/no-autofocus": "off",
+    "no-param-reassign": [
+      "off",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": [
+          "draft",
+          "sketch",
+          "outline",
+          "state"
+        ]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": true,
+        "trailingComma": "all",
+        "singleQuote": true,
+        "printWidth": 80,
+        "tabWidth": 2,
+        "arrowParens": "avoid",
+        "endOfLine": "auto"
+      },
+      {
+        "usePrettierrc": true
+      }
+    ]
+  }
+}

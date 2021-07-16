@@ -1,0 +1,46 @@
+html {
+  font-size: 62.5%;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+.app {
+  box-sizing: border-box;
+  height: auto;
+  min-height: 100vh;
+  background: -webkit-linear-gradient(to top, #b2fefa, #0ed2f7);
+  background: linear-gradient(to top, #b2fefa, #0ed2f7);
+}
+
+.notes-section {
+  display: flex;
+}
+
+.notes-field {
+  &__wrapper {
+    margin: 2rem 0 0 2rem;
+    width: 75%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    margin: 2rem auto;
+    font-family: Roboto, sans-serif;
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: #262882;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+

@@ -1,0 +1,16 @@
+select option:disabled {
+  display: none;
+}
+
+select:invalid{
+  color: gray;
+}
+
+option{
+  color: black;
+  padding-right: 1rem;
+}
+
+select{
+  font-size-adjust: 0.3;
+}
